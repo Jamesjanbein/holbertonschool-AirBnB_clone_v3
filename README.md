@@ -19,6 +19,11 @@ database, storage, RESTful API, Web Framework, and Front End.
 
 ## Testing
 
+#### NOTE: YOU MUST RUN THE SQL SCRIPT `setup_mysql_test.sql` RO RUN THE UNIT TESTS.
+```
+$ cat setup_mysql_test.sql | mysql -u root -p
+```
+
 
 #### `unittest`
 
@@ -88,6 +93,30 @@ create: create [ARG]
 
 Uses [Travis-CI](https://travis-ci.org/) to run all tests on all commits to the
 github repo
+
+## Running
+
+Clone the Repo
+```
+$ git clone https://github.com/glyif/AirBnB_clone_v3 && cd AirBnB_clone_v3
+```
+
+Install Dependencies
+```
+$ pip3 install -r requirements.txt
+```
+
+VirtualEnv Alternative
+```
+$ virtualenv -p $(which python3) env
+$ source env/bin/activate
+$ pip install -r requirements.txt
+```
+
+To exit out of the virtualenv, use:
+```
+$ deactivate
+```
 
 ## Authors
 
