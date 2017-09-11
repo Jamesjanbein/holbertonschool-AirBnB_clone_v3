@@ -38,33 +38,11 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """instantiation of new BaseModel Class"""
-
+        self.id = str(uuid4())
+        self.created_at = datetime.now()
         if kwargs:
-            self.__set_attributes(kwargs)
-        else:
-            self.id = str(uuid4())
-            self.created_at = datetime.now()
-
-    def __set_attributes(self, attr_dict):
-        """
-            private: converts kwargs values to python class attributes
-        """
-        if 'id' not in attr_dict:
-            attr_dict['id'] = str(uuid4())
-        if 'created_at' not in attr_dict:
-            attr_dict['created_at'] = datetime.now()
-        elif not isinstance(attr_dict['created_at'], datetime):
-            attr_dict['created_at'] = datetime.strptime(
-                attr_dict['created_at'], '%Y-%m-%d %H:%M:%S.%f')
-        if 'updated_at' in attr_dict:
-            if not isinstance(attr_dict['updated_at'], datetime):
-                attr_dict['updated_at'] = datetime.strptime(
-                    attr_dict['updated_at'], '%Y-%m-%d %H:%M:%S.%f')
-        if storage_type != 'db':
-            if attr_dict['__class__']:
-                attr_dict.pop('__class__')
-        for attr, val in attr_dict.items():
-            setattr(self, attr, val)
+            for key, value in kwargs.items():
+                setattr(self, key, value)
 
     def __is_serializable(self, obj_v):
         """
