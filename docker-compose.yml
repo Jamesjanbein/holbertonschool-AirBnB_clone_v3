@@ -10,8 +10,8 @@ services:
     command: tail -F anything
 
 
-  flask:
-    build: www/.
+  api:
+    build: api/.
     ports:
       - "5000:5000"
     links:
