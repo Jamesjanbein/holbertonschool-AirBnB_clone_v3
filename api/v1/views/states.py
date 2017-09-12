@@ -2,9 +2,9 @@
 """
 route for handling State objects and operations
 """
-from flask import jsonify
+from flask import jsonify, abort, request
 from api.v1.views import app_views, storage
-
+from models.state import State
 
 @app_views.route("/states", methods=["GET"], strict_slashes=False)
 def state_get_all():
@@ -18,3 +18,24 @@ def state_get_all():
         state_list.append(obj.to_json())
 
     return jsonify(state_list)
+
+@app_views.route("/states", methods=["POST"], strict_slashes=False)
+def state_create():
+    """
+    create state route
+    :return: newly created state obj
+    """
+    state_json = request.get_json(silent=True)
+    if state_json is None:
+        abort(400, 'Not a JSON')
+    if "name" not in state_json:
+        abort(400, 'Missing name')
+
+    new_state = State(**state_json)
+    new_state.save()
+    resp = jsonify(new_state.to_json())
+    resp.status_code = 201
+
+    return resp
+
+
