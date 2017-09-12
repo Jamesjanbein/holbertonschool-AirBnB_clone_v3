@@ -41,7 +41,8 @@ class DBStorage:
         if cls:
             obj_class = self.__session.query(self.CNC.get(cls)).all()
             for item in obj_class:
-                obj_dict[item.id] = item
+                key = str(item.__class__.__name__) + "." + str(item.id)
+                obj_dict[key] = item
             return obj_dict
         for class_name in self.CNC:
             if class_name == 'BaseModel':
@@ -49,12 +50,36 @@ class DBStorage:
             obj_class = self.__session.query(
                 self.CNC.get(class_name)).all()
             for item in obj_class:
-                obj_dict[item.id] = item
+                key = str(item.__class__.__name__) + "." + str(item.id)
+                obj_dict[key] = item
         return obj_dict
 
     def new(self, obj):
         """ adds objects to current database session """
         self.__session.add(obj)
+
+    def get(self, cls, id):
+        """
+        fetches specific object
+        :param cls: class of object as string
+        :param id: id of object as string
+        :return: found object or None
+        """
+        all_class = self.all(cls)
+
+        for obj in all_class.values():
+            if id == str(obj.id):
+                return obj
+
+        return None
+
+    def count(self, cls=None):
+        """
+        count of how many instances of a class
+        :param cls: class name
+        :return: count of instances of a class
+        """
+        return len(self.all(cls))
 
     def save(self):
         """ commits all changes of current database session """
