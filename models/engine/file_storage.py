@@ -53,7 +53,7 @@ class FileStorage:
         all_class = self.all(cls)
 
         for obj in all_class.values():
-            if id.split(".")[1] == obj.id:
+            if id == str(obj.id):
                 return obj
 
         return None
