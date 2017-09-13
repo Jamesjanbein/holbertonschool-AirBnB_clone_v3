@@ -95,6 +95,44 @@ def place_put(place_id):
     return jsonify(fetched_obj.to_json())
 
 
+@app_views.route("/places_search", methods=["POST"],
+                 strict_slashes=False)
+def places_search():
+    """
+    searches for a place
+    :return:
+    """
+    place_json = request.get_json(silent=True)
+    results = []
+
+    if place_json is None:
+        abort(400, 'Not a JSON')
+
+    if len(place_json) == 0:
+        all_places = storage.all("Place")
+        resp = []
+        for obj in all_places.values():
+            resp.append(obj.to_json())
+        return jsonify(resp)
+
+    state_ids = []
+    city_ids = []
+    amentiy_ids = []
+
+    for key in place_json.keys():
+        if key == "states":
+            
+        elif key == "cities":
+            pass
+        elif key == "amenities":
+            pass
+        else:
+            pass
+
+
+
+
+
 @app_views.route("/places/<place_id>",  methods=["DELETE"],
                  strict_slashes=False)
 def place_delete_by_id(place_id):
