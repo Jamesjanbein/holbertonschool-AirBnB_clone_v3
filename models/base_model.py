@@ -80,7 +80,9 @@ class BaseModel:
         bm_dict['__class__'] = type(self).__name__
         if '_sa_instance_state' in bm_dict:
             bm_dict.pop('_sa_instance_state')
-        return(bm_dict)
+        if storage_type == "db" and 'password' in bm_dict:
+            bm_dict.pop('password')
+        return bm_dict
 
     def __str__(self):
         """returns string type representation of object instance"""
