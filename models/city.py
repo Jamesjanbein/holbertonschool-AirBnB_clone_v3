@@ -33,7 +33,7 @@ class City(BaseModel, Base):
             result = []
 
             for obj in all_places.values():
-                if str(obj.id) == str(self.id):
+                if str(obj.city_id) == str(self.id):
                     result.append(obj)
 
             return []
