@@ -8,6 +8,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String, Float, ForeignKey,\
     MetaData, Table, ForeignKey
 from sqlalchemy.orm import backref
+import models
 storage_type = os.environ.get('HBNB_TYPE_STORAGE')
 
 
@@ -51,4 +52,41 @@ class Place(BaseModel, Base):
         price_by_night = 0
         latitude = 0.0
         longitude = 0.0
-        amenity_ids = ['', '']
+        amenity_ids = []
+
+    if storage_type != "db":
+        @property
+        def amenities(self):
+            """
+            ammenities getter
+            :return: list of amenitites
+            """
+            amenity_objs = []
+
+            for a_id in self.amenity_ids:
+                amenity_objs.append(models.storage.get("Amenity", str(a_id)))
+
+            return amenity_objs
+
+        @amenities.setter
+        def amenities(self, amenity):
+            """
+            ammenities setter
+            :return:
+            """
+            self.amenities.ids.append(amenity.id)
+
+        @property
+        def reviews(self):
+            """
+            reviews getter
+            :return: list of reviews
+            """
+            all_reviews = models.storage.all("Review")
+            place_reviews = []
+
+            for review in all_reviews.values():
+                if review.place_id == self.id:
+                    place_reviews.append(review)
+
+            return place_reviews

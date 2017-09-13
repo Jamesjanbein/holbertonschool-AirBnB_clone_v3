@@ -19,3 +19,20 @@ class Review(BaseModel, Base):
         place_id = ''
         user_id = ''
         text = ''
+
+    if storage_type != db:
+        @property
+        def place_id(self):
+            """
+            sets place_id
+            :return: place_id
+            """
+            return self.place_id
+
+        @place_id.setter
+        def place_id(self, place_id):
+            """
+            sets place_id
+            :param place_id: place id review belongs to
+            """
+            self.place_id = place_id
