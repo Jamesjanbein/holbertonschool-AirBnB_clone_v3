@@ -6,6 +6,7 @@ from flask import jsonify, abort, request
 from api.v1.views import app_views, storage
 from models.state import State
 
+
 @app_views.route("/states", methods=["GET"], strict_slashes=False)
 def state_get_all():
     """
@@ -18,6 +19,7 @@ def state_get_all():
         state_list.append(obj.to_json())
 
     return jsonify(state_list)
+
 
 @app_views.route("/states", methods=["POST"], strict_slashes=False)
 def state_create():
@@ -38,6 +40,7 @@ def state_create():
 
     return resp
 
+
 @app_views.route("/states/<state_id>",  methods=["GET"], strict_slashes=False)
 def state_by_id(state_id):
     """
@@ -52,6 +55,7 @@ def state_by_id(state_id):
         abort(404)
 
     return jsonify(fetched_obj.to_json())
+
 
 @app_views.route("/states/<state_id>",  methods=["PUT"], strict_slashes=False)
 def state_put(state_id):
@@ -72,7 +76,9 @@ def state_put(state_id):
     fetched_obj.save()
     return jsonify(fetched_obj.to_json())
 
-@app_views.route("/states/<state_id>",  methods=["DELETE"], strict_slashes=False)
+
+@app_views.route("/states/<state_id>", methods=["DELETE"],
+                 strict_slashes=False)
 def state_delete_by_id(state_id):
     """
     deletes State by id
@@ -89,4 +95,3 @@ def state_delete_by_id(state_id):
     storage.save()
 
     return jsonify({})
-

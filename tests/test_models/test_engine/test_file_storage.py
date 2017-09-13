@@ -199,6 +199,7 @@ class TestUserFsInstances(unittest.TestCase):
                 actual = 1
         self.assertTrue(1 == actual)
 
+
 @unittest.skipIf(storage_type == 'db', 'skip if environ is not db')
 class TestStorageGet(unittest.TestCase):
     """
@@ -250,6 +251,7 @@ class TestStorageGet(unittest.TestCase):
         result = storage.get(cls="State", id="doesnotexist")
 
         self.assertIsNone(result)
+
 
 @unittest.skipIf(storage_type == 'db', 'skip if environ is not db')
 class TestStorageCount(unittest.TestCase):
@@ -304,7 +306,9 @@ class TestStorageCount(unittest.TestCase):
         """
         result = storage.count(cls="City")
 
-        self.assertEqual(int(0 if len(storage.all("City")) is None else len(storage.all("City"))), result)
+        self.assertEqual(
+            int(0 if len(storage.all("City")) is None else
+                len(storage.all("City"))), result)
 
 
 if __name__ == '__main__':
