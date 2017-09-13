@@ -30,10 +30,10 @@ class City(BaseModel, Base):
             """
             all_places = models.storage.all("Place")
 
-            result = None
+            result = []
 
             for obj in all_places.values():
                 if str(obj.id) == str(self.id):
                     result.append(obj)
 
-            return result
+            return []
