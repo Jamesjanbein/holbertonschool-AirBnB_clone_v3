@@ -74,7 +74,7 @@ class Place(BaseModel, Base):
             ammenities setter
             :return:
             """
-            self.amenities.ids.append(amenity.id)
+            self.amenity_ids.append(amenity.id)
 
         @property
         def reviews(self):
