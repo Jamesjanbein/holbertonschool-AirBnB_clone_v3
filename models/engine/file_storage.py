@@ -73,7 +73,7 @@ class FileStorage:
         d = {}
         for bm_id, bm_obj in FileStorage.__objects.items():
             d[bm_id] = bm_obj.to_json()
-        with open(fname, mode='w', encoding='utf-8') as f_io:
+        with open(fname, mode='w+', encoding='utf-8') as f_io:
             json.dump(d, f_io)
 
     def reload(self):
