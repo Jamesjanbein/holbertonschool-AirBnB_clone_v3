@@ -20,7 +20,7 @@ class Review(BaseModel, Base):
         user_id = ''
         text = ''
 
-    if storage_type != db:
+    if storage_type != "db":
         @property
         def place_id(self):
             """
