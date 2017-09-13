@@ -150,7 +150,10 @@ $ docker exec -it <container_id> /bin/bash
 ```
 NOTE: you will need to replace <container_id> with the actual console container id
 
+## API Documentation
+There is a postman json in side the API folder that you can import to check out the api endpoints, or you can go to [the online version](https://documenter.getpostman.com/view/1535334/airbnb_clone_v3/6tc3iuA)
 
+Swagger documentation will soon come.
 
 ## Authors
 
