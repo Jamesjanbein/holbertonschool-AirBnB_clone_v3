@@ -16,7 +16,7 @@ def places_by_city(city_id):
     """
     place_list = []
     city_obj = storage.get("City", str(city_id))
-    for obj in city_obj:
+    for obj in city_obj.places:
         place_list.append(obj.to_json())
 
     return jsonify(place_list)
@@ -40,6 +40,8 @@ def place_create(city_id):
         abort(400, 'Missing user_id')
     if "name" not in place_json:
         abort(400, 'Missing name')
+
+    place_json["city_id"] = city_id
 
     new_place = Place(**place_json)
     new_place.save()

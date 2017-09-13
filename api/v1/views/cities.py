@@ -37,14 +37,13 @@ def city_create(state_id):
     if city_json is None:
         abort(400, 'Not a JSON')
 
-    if "state_id" not in city_json:
+    if not storage.get("State", str(state_id)):
         abort(404)
 
     if "name" not in city_json:
         abort(400, 'Missing name')
 
-    if not storage.get("State", str(state_id)):
-        abort(404)
+    city_json["state_id"] = state_id
 
     new_city = City(**city_json)
     new_city.save()

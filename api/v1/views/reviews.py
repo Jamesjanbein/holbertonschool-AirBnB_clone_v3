@@ -15,8 +15,8 @@ def reviews_by_place(place_id):
     :return: json of all reviews
     """
     review_list = []
-    place_obj = storage.get("Review", str(place_id))
-    for obj in place_obj:
+    place_obj = storage.get("Place", str(place_id))
+    for obj in place_obj.reviews:
         review_list.append(obj.to_json())
 
     return jsonify(review_list)
@@ -40,6 +40,8 @@ def review_create(place_id):
         abort(400, 'Missing user_id')
     if "text" not in review_json:
         abort(400, 'Missing text')
+
+    review_json["place_id"] = place_id
 
     new_review = Review(**review_json)
     new_review.save()
