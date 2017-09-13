@@ -3,6 +3,8 @@
 route for handling place and amenities linking
 """
 from flask import jsonify, abort
+from os import getenv
+
 from api.v1.views import app_views, storage
 
 
@@ -49,6 +51,8 @@ def unlink_amenity_from_place(place_id, amenity_id):
     for obj in fetched_obj.amenities:
         if str(obj.id) == amenity_id:
             fetched_obj.amenities.remove(obj)
+            if getenv("HBNB_TYPE_STORAGE") != "db":
+                fetched_obj.amenity_id.remove(obj.id)
             fetched_obj.save()
             found = 1
             break
