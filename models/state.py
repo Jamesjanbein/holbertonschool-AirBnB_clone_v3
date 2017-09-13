@@ -27,7 +27,7 @@ class State(BaseModel, Base):
             linked to the current State
             """
             city_list = []
-            for city in models.storage.all("City"):
+            for city in models.storage.all("City").values():
                 if city.state_id == self.id:
                     city_list.append(city)
             return city_list
