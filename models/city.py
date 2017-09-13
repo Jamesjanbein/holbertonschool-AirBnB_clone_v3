@@ -34,7 +34,6 @@ class City(BaseModel, Base):
 
             for obj in all_places.values():
                 if str(obj.city_id) == str(self.id):
-                    print("asdfasdfasdfasdfasdfasdfasdf")
                     result.append(obj)
 
             return result
