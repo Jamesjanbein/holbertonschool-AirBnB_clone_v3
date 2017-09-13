@@ -113,10 +113,44 @@ $ source env/bin/activate
 $ pip install -r requirements.txt
 ```
 
+Running Console
+```
+$ ./console.py
+$ HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db ./console.py
+```
+
+Running Flask API
+```
+$ HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db HBNB_API_HOST=0.0.0.0 HBNB_API_PORT=5000 python3 -m api.v1.app
+```
+
 To exit out of the virtualenv, use:
 ```
 $ deactivate
 ```
+
+### Docker Integration
+To run with docker, it's very simple.
+
+NOTE: You will need to have docker and docker-compose installed
+
+First, build all of the images. (console, db, api)
+```
+$ docker-compose build --no-cache
+```
+
+Then you can just run the images
+```
+$ docker-compose up -d
+```
+
+To use the console, you'll need to run:
+```
+$ docker exec -it <container_id> /bin/bash
+```
+NOTE: you will need to replace <container_id> with the actual console container id
+
+
 
 ## Authors
 
