@@ -90,3 +90,4 @@ class Place(BaseModel, Base):
                     place_reviews.append(review)
 
             return place_reviews
+

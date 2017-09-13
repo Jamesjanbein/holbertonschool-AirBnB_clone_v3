@@ -50,8 +50,9 @@ def unlink_amenity_from_place(place_id, amenity_id):
 
     for obj in fetched_obj.amenities:
         if str(obj.id) == amenity_id:
-            fetched_obj.amenities.remove(obj)
-            if getenv("HBNB_TYPE_STORAGE") != "db":
+            if getenv("HBNB_TYPE_STORAGE") == "db":
+                fetched_obj.amenities.remove(obj)
+            else:
                 fetched_obj.amenity_id.remove(obj.id)
             fetched_obj.save()
             found = 1
@@ -91,7 +92,11 @@ def link_amenity_to_place(place_id, amenity_id):
     if found_amenity is not None:
         return jsonify(found_amenity.to_json())
 
-    fetched_obj.amenities.append(amenity_obj)
+    if getenv("HBNB_TYPE_STORAGE") == "db":
+        fetched_obj.amenities.append(amenity_obj)
+    else:
+        fetched_obj.amenities = amenity_obj
+
     fetched_obj.save()
 
     resp = jsonify(amenity_obj.to_json())
