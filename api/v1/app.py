@@ -33,7 +33,7 @@ def handle_404(exception):
     :return: returns 404 json
     """
     data = {
-        "error": "Not Found"
+        "error": "Not found"
     }
 
     resp = jsonify(data)
