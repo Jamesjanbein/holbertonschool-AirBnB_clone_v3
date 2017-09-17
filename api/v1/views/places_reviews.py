@@ -16,6 +16,10 @@ def reviews_by_place(place_id):
     """
     review_list = []
     place_obj = storage.get("Place", str(place_id))
+
+    if place_obj is None:
+        abort(404)
+
     for obj in place_obj.reviews:
         review_list.append(obj.to_json())
 
